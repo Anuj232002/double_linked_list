@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct abc
+struct double_ll
 {
  int data;
- struct abc *prev, *next;
+ struct double_ll *prev, *next;
 };
-void create(int n, struct abc* head)
+void create(int n, struct double_ll* head)
 {
- struct abc *temp;
+ struct double_ll *temp;
  for(int i=0;i<n;i++)
  {
- temp = (struct abc*)malloc(sizeof(struct abc));
+ temp = (struct double_ll*)malloc(sizeof(struct double_ll));
  printf("Enter data: ");
  scanf("%d",&temp->data);
  head->next = temp;
@@ -19,9 +19,9 @@ void create(int n, struct abc* head)
  head = head->next;
  }
 }
-void display(struct abc *head)
+void display(struct double_ll *head)
 {
- printf("Elements of the list are: \n");
+ printf("\nElements of the list are: ");
  while(head!=NULL)
  {
  printf("%d ",head->data);
@@ -29,12 +29,12 @@ void display(struct abc *head)
  printf("\n");
 }
 }
-void insertMiddle(int e, struct abc *head)
+void insert_middle(int e, struct double_ll *head)
 {
- struct abc *temp, *p, *q;
+ struct double_ll *temp, *p, *q;
  q = head;
- temp = (struct abc*)malloc(sizeof(struct abc));
- printf("Enter data: ");
+ temp = (struct double_ll*)malloc(sizeof(struct double_ll));
+ printf("\nEnter data: ");
  scanf("%d",&temp->data);
  temp->next = NULL;
  temp->prev = NULL;
@@ -49,66 +49,7 @@ void insertMiddle(int e, struct abc *head)
  temp->prev = head;
  display(q);
 }
-void insertEnd(struct abc *head)
-{
- struct abc *temp;
- temp = (struct abc*)malloc(sizeof(struct abc));
- printf("Enter data: ");
- scanf("%d",&temp->data);
- temp->next = NULL;
- temp->prev = NULL;
- while(head->next != NULL)
- {
- head = head->next;
- }
- temp->prev = head;
- head->next = temp;
-}
-struct abc* insertStart(struct abc *head)
-{
- struct abc *temp;
- temp = (struct abc*)malloc(sizeof(struct abc));
- printf("Enter data: ");
- scanf("%d",&temp->data);
- temp->prev = NULL;
- temp->next = head;
- head->prev = temp;
- return temp;
-}
-struct abc* deleteHead(struct abc *head)
-{
- struct abc *p;
- p = head;
- head = head->next;
- head->prev = NULL;
- free(p);
- return head;
-}
-void delete(struct abc *head, int data)
-{
- while(head->data != data)
- {
- head = head->next;
- }
- struct abc *p, *q;
- p = head->prev;
- q = head->next;
- p->next = q;
- q->prev = p;
- free(head);
-}
-void deleteLast(struct abc *head)
-{
- struct abc *p;
- while(head->next != NULL)
- {
- head = head->next;
- }
- p = head->prev;
- p->next = NULL;
- free(head);
-}
-void displayReverse(struct abc *head)
+void display_rev(struct double_ll *head)
 {
  while(head->next != NULL)
  {
@@ -120,48 +61,118 @@ void displayReverse(struct abc *head)
  head = head->prev;
  }
 }
+void insert_end(struct double_ll *head)
+{
+ struct double_ll *temp;
+ temp = (struct double_ll*)malloc(sizeof(struct double_ll));
+ printf("Enter data: ");
+ scanf("%d",&temp->data);
+ temp->next = NULL;
+ temp->prev = NULL;
+ while(head->next != NULL)
+ {
+ head = head->next;
+ }
+ temp->prev = head;
+ head->next = temp;
+}
+struct double_ll* insert_first(struct double_ll *head)
+{
+ struct double_ll *temp;
+ temp = (struct double_ll*)malloc(sizeof(struct double_ll));
+ printf("Enter data: ");
+ scanf("%d",&temp->data);
+ temp->prev = NULL;
+ temp->next = head;
+ head->prev = temp;
+ return temp;
+}
+struct double_ll* deleteHead(struct double_ll *head)
+{
+ struct double_ll *p;
+ p = head;
+ head = head->next;
+ head->prev = NULL;
+ free(p);
+ return head;
+}
+void delete(struct double_ll *head, int data)
+{
+ while(head->data != data)
+ {
+ head = head->next;
+ }
+ struct double_ll *p, *q;
+ p = head->prev;
+ q = head->next;
+ p->next = q;
+ q->prev = p;
+ free(head);
+}
+void display(struct double_ll *head)
+{
+ printf("Elements of the list are: \n");
+ while(head!=NULL)
+ {
+ printf("%d ",head->data);
+ head = head->next;
+ printf("\n");
+}
+}
+void deleteLast(struct double_ll *head)
+{
+ struct double_ll *p;
+ while(head->next != NULL)
+ {
+ head = head->next;
+ }
+ p = head->prev;
+ p->next = NULL;
+ free(head);
+}
+
 int main(void)
 {
- struct abc *head;
- head = (struct abc*)malloc(sizeof(struct abc));
+ struct double_ll *head;
+ head = (struct double_ll*)malloc(sizeof(struct double_ll));
  int choice,n,e;
  
  do
  {
- printf("\nMenu\n");
- printf("1. Create list\n");
- printf("2. Insert at start\n");
- printf("3. Insert in middle\n");
- printf("4. Insert at end\n");
- printf("5. Delete head\n");
- printf("6. Delete middle node\n");
- printf("7. Delete last node\n");
- printf("8. Display list forward\n");
- printf("9. Display backward\n");
- printf("10. Exit\n");
- printf("Enter choice: ");
+printf("\n****************************************\n");
+ printf("\n1. Create ");
+ printf("\n2. Insert at first");
+ printf("\n3. Insert at middle");
+ printf("\n4. Insert at end");
+ printf("\n5. Delete head");
+ printf("\n6. Delete middle node");
+ printf("\n7. Delete last node");
+ printf("\n8. Display list forward");
+ printf("\n9. Display backward");
+ printf("\n10. Exit");
+ printf("\nEnter choice: ");
  scanf("%d",&choice);
  switch(choice)
  {
  case 1:
- printf("Enter data for head node\n");
+ printf("\nEnter data for head node");
  scanf("%d",&head->data);
  head->next = NULL;
  head->prev = NULL;
- printf("Enter number of nodes\n");
+ printf("\nEnter number of nodes");
  scanf("%d",&n);
  create(n,head);
  case 2:
- head = insertStart(head);
+ head = insert_first(head);
  display(head);
  break;
  case 3:
- printf("Enter element after which you want to insert: ");
+ printf("\nEnter element after which want to insert: ");
  scanf("%d",&e);
- insertMiddle(e, head);
+ insert_middle(e, head);
  break;
  case 4:
- insertEnd(head);
+ insert_end(head);
  display(head);
  break;
  case 5:
@@ -169,7 +180,7 @@ int main(void)
  display(head);
  break;
  case 6:
- printf("Enter node which you want to delete: ");
+ printf("\nEnter node which want to delete: ");
  scanf("%d",&e);
  delete(head,e);
  display(head);
@@ -182,12 +193,13 @@ int main(void)
  display(head);
  break;
  case 9:
- displayReverse(head);
+ display_rev(head);
  break;
  case 10:
+ 
  break;
  default:
- printf("Enter valid number.\n");
+ printf("\nPlease enter correct choice");
 }}while(choice != 10);
 
  return 0;
